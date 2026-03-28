@@ -1,0 +1,56 @@
+{
+  "name": "Java, PostgreSQL & React",
+  "image": "mcr.microsoft.com/devcontainers/java:21-bullseye",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "18"
+    },
+    "ghcr.io/devcontainers/features/postgres:1": {
+      "version": "15"
+    }
+  },
+  "services": {
+    "postgres": {
+      "image": "postgres:15",
+      "environment": {
+        "POSTGRES_USER": "postgres",
+        "POSTGRES_PASSWORD": "postgres",
+        "POSTGRES_DB": "myapp"
+      },
+      "volumes": [
+        "postgres-data:/var/lib/postgresql/data"
+      ],
+      "ports": [
+        "5432:5432"
+      ]
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vscjava.vscode-java-pack",
+        "dsznajder.es7-react-js-snippets",
+        "ckolkman.vscode-postgres"
+      ],
+      "settings": {
+        "java.home": "/usr/local/sdkman/candidates/java/current",
+        "java.maven.enabled": true,
+        "java.gradle.enabled": true,
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+      }
+    }
+  },
+  "postCreateCommand": "npm install -g create-react-app && npm install -g yarn",
+  "forwardPorts": [
+    5432,
+    3000,
+    8080,
+    8888
+  ],
+  "forwardPortsLocalhost": true,
+  "remoteUser": "node",
+  "mounts": [
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/node/.ssh,readonly"
+  ]
+}
